@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🏢 ReserveSpace - Enterprise Resource Booking Platform (Poonam Memane)
 
 A commercial-grade, real-time RESTful platform and interactive portal for **Corporate Resource & Meeting Space Booking** engineered by **Poonam Memane** with **Java 17+**, **Spring Boot 3**, **Spring Security 6**, **Stateless JWT**, and **MySQL with JPA / Hibernate**.
@@ -59,3 +60,7 @@ spring.jpa.show-sql=true
    ```bash
    .\mvnw.cmd test
    ```
+=======
+# backend-developer-as-final-71059-poonam
+Final Project Assignment - This repository contains the complete final project code and documentation.
+>>>>>>> 105ea3cfa5b59b884eb03cf263a5fda4e2bd1502
