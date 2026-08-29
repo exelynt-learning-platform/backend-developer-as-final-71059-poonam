@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | ReserveSpace - Poonam Memane</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --dark: #0f172a;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            color: #1e293b;
+        }
+
+        .auth-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            background: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 60px -15px rgba(0,0,0,0.12);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .auth-banner-side {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-banner-side::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.25) 0%, transparent 60%);
+        }
+
+        .auth-form-side {
+            padding: 3.5rem;
+        }
+
+        .brand-logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #6366f1, #0ea5e9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.35rem;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-pills-role {
+            background-color: #f1f5f9;
+            padding: 0.35rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-pills-role .nav-link {
+            border-radius: 0.55rem;
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: #64748b;
+            padding: 0.6rem 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pills-role .nav-link.active {
+            background-color: #ffffff;
+            color: var(--primary);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .form-control, .form-select {
+            padding: 0.75rem 1rem;
+            border-radius: 0.65rem;
+            border-color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        .btn-auth-submit {
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            color: white;
+            font-weight: 700;
+            padding: 0.85rem;
+            border-radius: 0.65rem;
+            border: none;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-auth-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
+            color: white;
+        }
+
+        .quick-fill-btn {
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            color: #475569;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.45rem 0.85rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .quick-fill-btn:hover {
+            background-color: #eef2ff;
+            border-color: #a5b4fc;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-wrapper">
+    <div class="row g-0">
+        
+        <!-- Left Banner Side -->
+        <div class="col-lg-5 d-none d-lg-flex auth-banner-side">
+            <div class="position-relative">
+                <div class="brand-logo-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <h2 class="fw-bold mb-2">ReserveSpace</h2>
+                <p class="text-light opacity-75">by Poonam Memane</p>
+                <div class="mt-5">
+                    <h4 class="fw-bold text-white mb-3">Manage spaces and gear effortlessly.</h4>
+                    <p class="text-light opacity-75 small">
+                        Real-time availability, double-booking prevention, and instant scheduling for team spaces and corporate resources.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="position-relative text-light opacity-60 small">
+                &copy; 2026 ReserveSpace • Poonam Memane
+            </div>
+        </div>
+
+        <!-- Right Form Side -->
+        <div class="col-lg-7 auth-form-side">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h3 class="fw-bold mb-1" id="authTitle">Sign In</h3>
+                    <p class="text-muted small mb-0">Access your bookings and management portal</p>
+                </div>
+                <a href="/" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                    <i class="fa-solid fa-arrow-left me-1"></i> Home
+                </a>
+            </div>
+
+            <!-- Role Selector Nav -->
+            <ul class="nav nav-pills nav-fill nav-pills-role" id="authNavTabs">
+                <li class="nav-item">
+                    <button class="nav-link active" id="tab-member-btn" onclick="selectRoleTab('user')">
+                        <i class="fa-solid fa-user me-1"></i> Member Sign In
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-admin-btn" onclick="selectRoleTab('admin')">
+                        <i class="fa-solid fa-user-shield me-1"></i> Administrator
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" id="tab-reg-btn" onclick="selectRoleTab('register')">
+                        <i class="fa-solid fa-user-plus me-1"></i> Create Account
+                    </button>
+                </li>
+            </ul>
+
+            <!-- LOGIN FORM -->
+            <div id="loginFormContainer">
+                <form onsubmit="handleAuthSubmit(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Username or Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-envelope text-muted"></i></span>
+                            <input type="text" id="usernameField" class="form-control border-start-0" placeholder="Enter username or email" required value="poonam">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label fw-bold small text-muted mb-0">Password</label>
+                            <a href="#" class="small text-decoration-none text-primary fw-semibold" onclick="showToast('Password reset link sent to registered email.')">Forgot?</a>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                            <input type="password" id="passwordField" class="form-control border-start-0" placeholder="Enter your password" required value="poonam123">
+                        </div>
+                    </div>
+
+                    <div id="authAlert" class="alert alert-danger py-2 small d-none mb-3"></div>
+
+                    <button type="submit" id="authSubmitBtn" class="btn btn-auth-submit w-100 mb-3">
+                        Sign In to Account
+                    </button>
+                </form>
+
+                <!-- Quick Fill Helper for Demo -->
+                <div class="pt-3 border-top mt-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <small class="text-muted fw-semibold">Quick Demo Login:</small>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="quick-fill-btn" onclick="quickFill('poonam', 'poonam123')">
+                                👑 Admin: Poonam
+                            </button>
+                            <button type="button" class="quick-fill-btn" onclick="quickFill('user', 'user123')">
+                                👤 Member: User
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REGISTRATION FORM (Initially Hidden) -->
+            <div id="registerFormContainer" class="d-none">
+                <form onsubmit="handleRegistrationSubmit(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Full Name</label>
+                        <input type="text" id="regName" class="form-control" placeholder="Poonam Memane" value="Poonam Memane" required>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label fw-bold small text-muted">Username</label>
+                            <input type="text" id="regUser" class="form-control" placeholder="poonam_dev" required>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-bold small text-muted">Role</label>
+                            <select id="regRoleSelect" class="form-select">
+                                <option value="ROLE_USER">Member</option>
+                                <option value="ROLE_ADMIN">Administrator</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Email Address</label>
+                        <input type="email" id="regEmailField" class="form-control" placeholder="poonam@example.com" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Password</label>
+                        <input type="password" id="regPassField" class="form-control" placeholder="Min 6 characters" required>
+                    </div>
+
+                    <div id="regAlert" class="alert py-2 small d-none mb-3"></div>
+
+                    <button type="submit" id="regSubmitBtn" class="btn btn-auth-submit w-100">
+                        Complete Registration
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const role = params.get('role');
+        const tab = params.get('tab');
+
+        if (tab === 'register') {
+            selectRoleTab('register');
+        } else if (role === 'admin') {
+            selectRoleTab('admin');
+        } else {
+            selectRoleTab('user');
+        }
+    });
+
+    function selectRoleTab(type) {
+        document.querySelectorAll('.nav-pills-role .nav-link').forEach(btn => btn.classList.remove('active'));
+        const loginContainer = document.getElementById('loginFormContainer');
+        const regContainer = document.getElementById('registerFormContainer');
+        const title = document.getElementById('authTitle');
+
+        if (type === 'register') {
+            document.getElementById('tab-reg-btn').classList.add('active');
+            loginContainer.classList.add('d-none');
+            regContainer.classList.remove('d-none');
+            title.innerText = 'Create Account';
+        } else if (type === 'admin') {
+            document.getElementById('tab-admin-btn').classList.add('active');
+            loginContainer.classList.remove('d-none');
+            regContainer.classList.add('d-none');
+            title.innerText = 'Administrator Sign In';
+            document.getElementById('usernameField').value = 'poonam';
+            document.getElementById('passwordField').value = 'poonam123';
+        } else {
+            document.getElementById('tab-member-btn').classList.add('active');
+            loginContainer.classList.remove('d-none');
+            regContainer.classList.add('d-none');
+            title.innerText = 'Member Sign In';
+            document.getElementById('usernameField').value = 'user';
+            document.getElementById('passwordField').value = 'user123';
+        }
+    }
+
+    function quickFill(u, p) {
+        document.getElementById('usernameField').value = u;
+        document.getElementById('passwordField').value = p;
+        if (u === 'poonam' || u === 'admin') {
+            selectRoleTab('admin');
+        } else {
+            selectRoleTab('user');
+        }
+    }
+
+    async function handleAuthSubmit(e) {
+        e.preventDefault();
+        const username = document.getElementById('usernameField').value;
+        const password = document.getElementById('passwordField').value;
+        const alertBox = document.getElementById('authAlert');
+        const btn = document.getElementById('authSubmitBtn');
+
+        alertBox.classList.add('d-none');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Signing In...';
+
+        try {
+            const res = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await res.json();
+
+            if (res.ok && result.success) {
+                localStorage.setItem('poonam_booking_auth', JSON.stringify(result.data));
+                window.location.href = '/pages/dashboard.html';
+            } else {
+                alertBox.innerText = result.message || 'Invalid username or password. Please verify your credentials.';
+                alertBox.classList.remove('d-none');
+            }
+        } catch (err) {
+            alertBox.innerText = 'Unable to connect to server. Please try again.';
+            alertBox.classList.remove('d-none');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = 'Sign In to Account';
+        }
+    }
+
+    async function handleRegistrationSubmit(e) {
+        e.preventDefault();
+        const fullName = document.getElementById('regName').value;
+        const username = document.getElementById('regUser').value;
+        const email = document.getElementById('regEmailField').value;
+        const role = document.getElementById('regRoleSelect').value;
+        const password = document.getElementById('regPassField').value;
+
+        const alertBox = document.getElementById('regAlert');
+        const btn = document.getElementById('regSubmitBtn');
+        alertBox.classList.add('d-none');
+        btn.disabled = true;
+
+        try {
+            const res = await fetch('/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fullName, username, email, role, password })
+            });
+            const result = await res.json();
+
+            if (res.ok && result.success) {
+                alertBox.className = 'alert alert-success py-2 small mb-3';
+                alertBox.innerText = 'Registration successful! Signing you in...';
+                alertBox.classList.remove('d-none');
+
+                // Auto login
+                setTimeout(async () => {
+                    const loginRes = await fetch('/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const loginData = await loginRes.json();
+                    if (loginRes.ok && loginData.success) {
+                        localStorage.setItem('poonam_booking_auth', JSON.stringify(loginData.data));
+                        window.location.href = '/pages/dashboard.html';
+                    }
+                }, 700);
+            } else {
+                alertBox.className = 'alert alert-danger py-2 small mb-3';
+                alertBox.innerText = result.message || 'Registration failed';
+                alertBox.classList.remove('d-none');
+            }
+        } catch (err) {
+            alertBox.className = 'alert alert-danger py-2 small mb-3';
+            alertBox.innerText = 'Error: ' + err.message;
+            alertBox.classList.remove('d-none');
+        } finally {
+            btn.disabled = false;
+        }
+    }
+
+    function showToast(msg) {
+        alert(msg);
+    }
+</script>
+</body>
+</html>

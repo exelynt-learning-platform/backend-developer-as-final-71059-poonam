@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Booking System - Poonam Memane</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #0ea5e9;
+            --dark: #0f172a;
+            --dark-card: #1e293b;
+            --light-bg: #f8fafc;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--light-bg);
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+        }
+
+        .brand-title {
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .brand-subtitle {
+            font-size: 0.72rem;
+            color: #64748b;
+            display: block;
+            margin-top: -3px;
+            font-weight: 600;
+        }
+
+        /* Hero */
+        .hero-section {
+            background: radial-gradient(circle at 50% 0%, #e0e7ff 0%, #f8fafc 75%);
+            padding: 5rem 0 4.5rem;
+            position: relative;
+        }
+
+        .hero-badge {
+            background-color: #ffffff;
+            color: var(--primary);
+            border: 1px solid #c7d2fe;
+            padding: 0.45rem 1.15rem;
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .hero-heading {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            color: var(--dark);
+            margin-bottom: 1.25rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtext {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .btn-main-primary {
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            color: white;
+            font-weight: 700;
+            padding: 0.85rem 2rem;
+            border-radius: 0.75rem;
+            border: none;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-main-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.45);
+            color: white;
+        }
+
+        .btn-main-secondary {
+            background-color: #ffffff;
+            color: var(--dark);
+            font-weight: 700;
+            padding: 0.85rem 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-main-secondary:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-2px);
+            color: var(--dark);
+        }
+
+        /* Filter Pills */
+        .filter-pill {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            color: #475569;
+            padding: 0.55rem 1.25rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-pill:hover {
+            border-color: #a5b4fc;
+            background-color: #f5f3ff;
+            color: var(--primary);
+        }
+
+        .filter-pill.active {
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        /* Space Card */
+        .space-card {
+            background: white;
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .space-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+        }
+
+        .space-img-wrap {
+            height: 200px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .space-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(15, 23, 42, 0.85);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(6px);
+        }
+
+        .space-status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #10b981;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.75rem;
+            border-radius: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .space-card-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Calculator Card */
+        .calculator-card {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(30, 27, 75, 0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .calc-result-box {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1.75rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .price-huge {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: #38bdf8;
+            letter-spacing: -0.02em;
+        }
+
+        /* Feature Card */
+        .feature-card {
+            background: white;
+            border-radius: 1.25rem;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            height: 100%;
+            transition: all 0.25s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 16px 30px -10px rgba(0,0,0,0.06);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon-circle {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: #eef2ff;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.35rem;
+        }
+
+        .live-booking-ticker {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 0.85rem 1.25rem;
+            box-shadow: 0 15px 35px -5px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            z-index: 999;
+            animation: slideInUp 0.6s ease;
+            max-width: 380px;
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .pulse-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #10b981;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .app-footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 4rem 0 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top py-3">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+            <div class="brand-logo-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div>
+                <span class="brand-title">Resource Booking System</span>
+                <span class="brand-subtitle">Poonam Memane</span>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav mx-auto gap-4 fw-semibold text-secondary">
+                <li class="nav-item"><a class="nav-link text-dark" href="#spaces">Catalog</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#calculator">Price Calculator</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="#faq">FAQ</a></li>
+            </ul>
+            <div class="d-flex align-items-center gap-3">
+                <a href="/pages/login.html" class="btn btn-outline-secondary rounded-pill px-4 fw-bold">
+                    <i class="fa-solid fa-user me-1"></i> Sign In
+                </a>
+                <a href="/pages/dashboard.html" class="btn btn-main-primary rounded-pill px-4">
+                    <span>Dashboard</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="container">
+        <div class="hero-badge">
+            <i class="fa-solid fa-circle-check text-success"></i> Resource Booking Platform • Poonam Memane
+        </div>
+        <h1 class="hero-heading">
+            Resource Booking <span class="gradient-text">System</span>
+        </h1>
+        <p class="hero-subtext">
+            Discover and reserve meeting rooms, video production equipment, and corporate fleet transit with instant confirmation and transparent decimal pricing in Indian Rupees (₹).
+        </p>
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap mb-5">
+            <a href="/pages/dashboard.html" class="btn-main-primary">
+                <i class="fa-solid fa-calendar-check"></i> <span>Explore & Book</span>
+            </a>
+            <a href="/pages/login.html?role=admin" class="btn-main-secondary">
+                <i class="fa-solid fa-shield-halved text-danger"></i> <span>Admin Sign In</span>
+            </a>
+            <a href="/pages/login.html?role=user" class="btn-main-secondary">
+                <i class="fa-solid fa-user text-primary"></i> <span>User Sign In</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Spaces Catalog Section -->
+<section id="spaces" class="py-5">
+    <div class="container py-4">
+        
+        <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+            <div>
+                <h6 class="text-primary fw-bold text-uppercase tracking-wider mb-1">Available Resources</h6>
+                <h2 class="fw-bold mb-0">Resource Catalog</h2>
+            </div>
+            
+            <!-- Category Filter Tabs -->
+            <div class="d-flex gap-2 flex-wrap">
+                <button class="filter-pill active" onclick="filterSpaces('ALL', this)">
+                    <i class="fa-solid fa-layer-group"></i> All
+                </button>
+                <button class="filter-pill" onclick="filterSpaces('ROOM', this)">
+                    <i class="fa-solid fa-door-open"></i> Meeting Rooms
+                </button>
+                <button class="filter-pill" onclick="filterSpaces('EQUIPMENT', this)">
+                    <i class="fa-solid fa-video"></i> Equipment
+                </button>
+                <button class="filter-pill" onclick="filterSpaces('VEHICLE', this)">
+                    <i class="fa-solid fa-van-shuttle"></i> Vehicles
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-4" id="spacesGridContainer">
+            
+            <!-- Space 1: Boardroom Apollo -->
+            <div class="col-md-6 col-lg-3 space-card-item" data-category="ROOM">
+                <div class="space-card">
+                    <div class="space-img-wrap" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80');">
+                        <span class="space-badge"><i class="fa-solid fa-door-open me-1"></i> ROOM</span>
+                        <span class="space-status-badge"><i class="fa-solid fa-check me-1"></i> Available</span>
+                    </div>
+                    <div class="space-card-body">
+                        <div>
+                            <h5 class="fw-bold mb-1">Executive Conference Room Apollo</h5>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-map-pin me-1 text-danger"></i> Tower A, 4th Floor</p>
+                            <p class="text-secondary small mb-3">Executive boardroom with 4K UHD conferencing, digital smart board, and 16 leather seats.</p>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="small text-muted"><i class="fa-solid fa-users me-1"></i> 16 Seats</span>
+                                <span class="fw-bold text-primary fs-5">₹2,500.00<small class="text-muted fs-6">/hr</small></span>
+                            </div>
+                            <a href="/pages/dashboard.html" class="btn btn-primary w-100 fw-bold rounded-3" style="background: var(--primary); border: none;">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Space 2: Innovation Studio -->
+            <div class="col-md-6 col-lg-3 space-card-item" data-category="ROOM">
+                <div class="space-card">
+                    <div class="space-img-wrap" style="background-image: url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80');">
+                        <span class="space-badge"><i class="fa-solid fa-lightbulb me-1"></i> ROOM</span>
+                        <span class="space-status-badge"><i class="fa-solid fa-check me-1"></i> Available</span>
+                    </div>
+                    <div class="space-card-body">
+                        <div>
+                            <h5 class="fw-bold mb-1">Innovation Design Studio</h5>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-map-pin me-1 text-danger"></i> Innovation Hub, 2nd Floor</p>
+                            <p class="text-secondary small mb-3">Agile design space with dual smart displays, acoustic sound isolation, and modular tables.</p>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="small text-muted"><i class="fa-solid fa-users me-1"></i> 25 Seats</span>
+                                <span class="fw-bold text-primary fs-5">₹4,000.00<small class="text-muted fs-6">/hr</small></span>
+                            </div>
+                            <a href="/pages/dashboard.html" class="btn btn-primary w-100 fw-bold rounded-3" style="background: var(--primary); border: none;">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Space 3: Sony 4K Kit -->
+            <div class="col-md-6 col-lg-3 space-card-item" data-category="EQUIPMENT">
+                <div class="space-card">
+                    <div class="space-img-wrap" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80');">
+                        <span class="space-badge"><i class="fa-solid fa-video me-1"></i> EQUIPMENT</span>
+                        <span class="space-status-badge"><i class="fa-solid fa-check me-1"></i> Available</span>
+                    </div>
+                    <div class="space-card-body">
+                        <div>
+                            <h5 class="fw-bold mb-1">Sony 4K Pro Video Production Kit</h5>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-map-pin me-1 text-danger"></i> Media Center, Tech Bay 3</p>
+                            <p class="text-secondary small mb-3">Full 4K cinema rig with wireless lavalier microphones, teleprompter, and studio LED lighting panels.</p>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="small text-muted"><i class="fa-solid fa-box me-1"></i> 1 Kit</span>
+                                <span class="fw-bold text-primary fs-5">₹1,200.00<small class="text-muted fs-6">/hr</small></span>
+                            </div>
+                            <a href="/pages/dashboard.html" class="btn btn-primary w-100 fw-bold rounded-3" style="background: var(--primary); border: none;">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Space 4: VIP Transit Shuttle -->
+            <div class="col-md-6 col-lg-3 space-card-item" data-category="VEHICLE">
+                <div class="space-card">
+                    <div class="space-img-wrap" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80');">
+                        <span class="space-badge"><i class="fa-solid fa-van-shuttle me-1"></i> VEHICLE</span>
+                        <span class="space-status-badge"><i class="fa-solid fa-check me-1"></i> Available</span>
+                    </div>
+                    <div class="space-card-body">
+                        <div>
+                            <h5 class="fw-bold mb-1">Executive VIP Transport Shuttle</h5>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-map-pin me-1 text-danger"></i> VIP Fleet Bay 1</p>
+                            <p class="text-secondary small mb-3">Premium 8-passenger all-electric vehicle with high-speed Wi-Fi, workspace tables, and GPS fleet tracking.</p>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="small text-muted"><i class="fa-solid fa-car me-1"></i> 8 Seats</span>
+                                <span class="fw-bold text-primary fs-5">₹3,500.00<small class="text-muted fs-6">/hr</small></span>
+                            </div>
+                            <a href="/pages/dashboard.html" class="btn btn-primary w-100 fw-bold rounded-3" style="background: var(--primary); border: none;">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Price Calculator -->
+<section id="calculator" class="py-5">
+    <div class="container py-3">
+        <div class="calculator-card">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <div class="badge bg-primary text-white mb-3 px-3 py-2 rounded-pill font-monospace small">
+                        <i class="fa-solid fa-calculator me-1"></i> Price Calculator (Decimal Precision)
+                    </div>
+                    <h2 class="fw-bold mb-3">Estimate Reservation Cost in INR (₹)</h2>
+                    <p class="text-light opacity-80 mb-4">Calculates exact decimal pricing based on hourly base rate and reservation duration.</p>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-white small">Select Resource</label>
+                        <select id="calcResourceSelect" class="form-select bg-white py-2 text-dark fw-semibold" onchange="recalculatePrice()">
+                            <option value="2500.00" data-name="Executive Conference Room Apollo">Executive Conference Room Apollo (₹2,500.00 / hr)</option>
+                            <option value="4000.00" data-name="Innovation Design Studio">Innovation Design Studio (₹4,000.00 / hr)</option>
+                            <option value="1200.00" data-name="Sony 4K Pro Video Production Kit">Sony 4K Pro Video Production Kit (₹1,200.00 / hr)</option>
+                            <option value="3500.00" data-name="Executive VIP Transport Shuttle">Executive VIP Transport Shuttle (₹3,500.00 / hr)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between text-white fw-bold small mb-2">
+                            <span>Duration</span>
+                            <span class="text-warning fs-6" id="calcHoursDisplay">2.0 Hours</span>
+                        </div>
+                        <input type="range" class="form-range" id="calcDurationSlider" min="1" max="8" value="2" step="1" oninput="recalculatePrice()">
+                        <div class="d-flex justify-content-between text-light opacity-60 small">
+                            <span>1 hr</span>
+                            <span>2 hrs</span>
+                            <span>4 hrs</span>
+                            <span>6 hrs</span>
+                            <span>8 hrs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="calc-result-box text-center">
+                        <h6 class="text-uppercase tracking-wider text-light opacity-75 fw-bold small mb-2">Total Decimal Price</h6>
+                        <div class="price-huge my-2" id="calcTotalDisplay">₹5,000.00</div>
+                        <div class="small text-light opacity-80 mb-4" id="calcBreakdownDisplay">₹2,500.00/hr × 2.0 hrs (Decimal value)</div>
+                        
+                        <a href="/pages/dashboard.html" class="btn btn-warning w-100 py-3 fw-bold rounded-3 text-dark fs-6">
+                            <i class="fa-solid fa-calendar-check me-2"></i> Book for <span id="calcBtnPrice">₹5,000.00</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Grid -->
+<section id="features" class="py-5 bg-white border-top border-bottom">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h6 class="text-primary fw-bold text-uppercase tracking-wider">Architecture & Specification</h6>
+            <h2 class="fw-bold">Key Technical Features</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-circle"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h5 class="fw-bold mb-2">Collision Prevention</h5>
+                    <p class="text-muted small mb-0">Automatic check prevents double-booking of any resource during overlapping time slots.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-circle"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h5 class="fw-bold mb-2">RBAC & JWT Security</h5>
+                    <p class="text-muted small mb-0">Full CRUD for ADMIN; read-only and own-booking management for standard USER with JWT binding.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon-circle"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                    <h5 class="fw-bold mb-2">Stored as Decimal Value</h5>
+                    <p class="text-muted small mb-0">Reservation total prices and base rates stored with high-precision BigDecimal (precision 10, scale 2) in MySQL.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Accordion -->
+<section id="faq" class="py-5">
+    <div class="container py-4" style="max-width: 800px;">
+        <div class="text-center mb-5">
+            <h6 class="text-primary fw-bold text-uppercase tracking-wider">Help & Details</h6>
+            <h2 class="fw-bold">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                <h2 class="accordion-header">
+                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                        How is the reservation price stored and calculated?
+                    </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body text-muted small">
+                        Per requirements, all reservation prices are stored as decimal values (<code>BigDecimal</code> with 2 decimal places) in the database and formatted as <code>₹X,XXX.00</code>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item border-0 mb-3 rounded-3 shadow-sm overflow-hidden">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                        How are user identities handled during booking?
+                    </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body text-muted small">
+                        User identity is strictly extracted from the active JWT token in the SecurityContext, ensuring standard users cannot impersonate others.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="app-footer">
+    <div class="container">
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <h4 class="text-white fw-bold mb-2">Resource Booking System</h4>
+                <p class="text-muted" style="max-width: 420px;">
+                    Built with Spring Boot 3, Spring Security 6, JWT, and MySQL by <strong>Poonam Memane</strong>.
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h6 class="text-white fw-bold mb-3">Links</h6>
+                <ul class="list-unstyled text-muted small">
+                    <li class="mb-2"><a href="/pages/dashboard.html" class="text-decoration-none text-muted">Dashboard</a></li>
+                    <li class="mb-2"><a href="/pages/login.html?role=admin" class="text-decoration-none text-muted">Admin Sign In</a></li>
+                    <li class="mb-2"><a href="/pages/login.html?role=user" class="text-decoration-none text-muted">User Sign In</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6 class="text-white fw-bold mb-3">API</h6>
+                <ul class="list-unstyled text-muted small">
+                    <li class="mb-2"><a href="/swagger-ui.html" target="_blank" class="text-decoration-none text-muted">Swagger OpenAPI</a></li>
+                    <li class="mb-2"><a href="/v3/api-docs" target="_blank" class="text-decoration-none text-muted">OpenAPI JSON</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="border-secondary opacity-25">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 text-muted small">
+            <div>&copy; 2026 Resource Booking System • <strong>Poonam Memane</strong></div>
+            <div class="d-flex gap-3">
+                <span>Decimal Prices in INR (₹)</span>
+                <span>•</span>
+                <span>Java 17+</span>
+                <span>•</span>
+                <span>Spring Boot 3</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating Live Toast -->
+<div class="live-booking-ticker" id="liveTicker">
+    <div class="pulse-dot"></div>
+    <div class="small">
+        <strong>Poonam Memane</strong> reserved <em>Executive Conference Room Apollo</em> for <strong>₹5,000.00</strong>
+        <div class="text-muted" style="font-size: 0.72rem;">2 mins ago • Pune</div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function filterSpaces(category, btn) {
+        document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const items = document.querySelectorAll('.space-card-item');
+        items.forEach(item => {
+            if (category === 'ALL' || item.getAttribute('data-category') === category) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    function recalculatePrice() {
+        const select = document.getElementById('calcResourceSelect');
+        const hourlyRate = parseFloat(select.value);
+        const hours = parseFloat(document.getElementById('calcDurationSlider').value);
+
+        document.getElementById('calcHoursDisplay').innerText = `${hours.toFixed(1)} Hours`;
+
+        const totalDecimal = (hourlyRate * hours).toFixed(2);
+        const formattedTotal = parseFloat(totalDecimal).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const formattedHourly = hourlyRate.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        document.getElementById('calcTotalDisplay').innerText = `₹${formattedTotal}`;
+        document.getElementById('calcBtnPrice').innerText = `₹${formattedTotal}`;
+        document.getElementById('calcBreakdownDisplay').innerText = `₹${formattedHourly}/hr × ${hours.toFixed(1)} hrs (Decimal value)`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        recalculatePrice();
+    });
+</script>
+</body>
+</html>

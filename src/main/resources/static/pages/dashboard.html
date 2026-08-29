@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace Portal | ReserveSpace - Poonam Memane</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --sidebar-width: 270px;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .app-sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1000;
+            border-right: 1px solid #1e293b;
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid #1e293b;
+            cursor: pointer;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #6366f1, #0ea5e9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .brand-text h5 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-text span {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .sidebar-nav {
+            padding: 1.25rem 0.85rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #64748b;
+            font-weight: 800;
+            padding: 0.75rem 0.75rem 0.35rem;
+        }
+
+        .nav-item-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            width: 100%;
+            padding: 0.75rem 0.95rem;
+            border-radius: 0.65rem;
+            color: #94a3b8;
+            background: transparent;
+            border: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-align: left;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            margin-bottom: 0.3rem;
+        }
+
+        .nav-item-btn:hover {
+            color: #fff;
+            background-color: #1e293b;
+        }
+
+        .nav-item-btn.active {
+            color: #fff;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+        }
+
+        .nav-item-btn i {
+            font-size: 1.15rem;
+            width: 22px;
+            text-align: center;
+        }
+
+        /* Profile Bottom Widget */
+        .sidebar-profile {
+            padding: 1.25rem;
+            background-color: #1e293b;
+            border-top: 1px solid #334155;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .avatar-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        /* Main Content */
+        .app-main {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-header {
+            height: 72px;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2.25rem;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .header-title h4 {
+            margin: 0;
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-custom-primary {
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            color: #fff;
+            font-weight: 700;
+            border: none;
+            padding: 0.65rem 1.35rem;
+            border-radius: 0.65rem;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn-custom-primary:hover {
+            background: linear-gradient(135deg, #4338ca, #3730a3);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .app-content {
+            padding: 2.25rem;
+            flex-grow: 1;
+        }
+
+        /* Metric Cards */
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.15rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.08);
+        }
+
+        .metric-info h6 {
+            margin: 0 0 0.4rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 800;
+        }
+
+        .metric-info h3 {
+            margin: 0;
+            font-weight: 800;
+            font-size: 1.85rem;
+        }
+
+        .metric-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .icon-indigo { background-color: #e0e7ff; color: #4338ca; }
+        .icon-green { background-color: #d1fae5; color: #065f46; }
+        .icon-purple { background-color: #f3e8ff; color: #6b21a8; }
+        .icon-amber { background-color: #fef3c7; color: #92400e; }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.15rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-custom thead th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-custom tbody td {
+            padding: 1.1rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.92rem;
+        }
+
+        .badge-status {
+            padding: 0.45rem 0.85rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.76rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .badge-CONFIRMED { background-color: #dcfce7; color: #15803d; }
+        .badge-PENDING { background-color: #fef9c3; color: #a16207; }
+        .badge-CANCELLED { background-color: #f1f5f9; color: #64748b; }
+
+        .space-item-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 1.15rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .space-item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 30px -10px rgba(0,0,0,0.1);
+        }
+
+        .space-item-img {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .space-item-body {
+            padding: 1.35rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .toast-container-custom {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="app-sidebar">
+    <div>
+        <div class="sidebar-brand" onclick="window.location.href='/'">
+            <div class="brand-icon">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div class="brand-text">
+                <h5>ReserveSpace</h5>
+                <span>by Poonam Memane</span>
+            </div>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="nav-section-title">Main Portal</div>
+            <button class="nav-item-btn active" onclick="switchView('dashboard')">
+                <i class="fa-solid fa-chart-pie"></i> Dashboard Overview
+            </button>
+            <button class="nav-item-btn" onclick="switchView('resources')">
+                <i class="fa-solid fa-door-open"></i> Spaces & Gear
+            </button>
+            <button class="nav-item-btn" onclick="switchView('reservations')">
+                <i class="fa-solid fa-calendar-check"></i> Bookings & Status
+            </button>
+
+            <div class="nav-section-title mt-3">Portal Switch & Docs</div>
+            <button class="nav-item-btn" onclick="toggleAccountRole()">
+                <i class="fa-solid fa-user-gear"></i> <span id="switchRoleLabel">Switch to Admin</span>
+            </button>
+            <a href="/swagger-ui.html" target="_blank" class="nav-item-btn text-decoration-none">
+                <i class="fa-solid fa-code"></i> API Documentation <i class="fa-solid fa-arrow-up-right-from-square ms-auto small opacity-50"></i>
+            </a>
+            <a href="/" class="nav-item-btn text-decoration-none">
+                <i class="fa-solid fa-house"></i> Public Homepage
+            </a>
+        </div>
+    </div>
+
+    <!-- User Profile Footer -->
+    <div class="sidebar-profile">
+        <div class="profile-card">
+            <div class="avatar-circle" id="sidebarAvatar">PM</div>
+            <div class="flex-grow-1 overflow-hidden">
+                <div class="fw-bold text-white text-truncate" id="sidebarName">Poonam Memane</div>
+                <div class="d-flex align-items-center gap-1 mt-0">
+                    <span class="badge bg-primary" style="font-size: 0.7rem;" id="sidebarRole">Administrator</span>
+                </div>
+            </div>
+            <button class="btn btn-sm btn-dark text-muted" onclick="logout()" title="Sign Out">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </div>
+</aside>
+
+<!-- Main Wrapper -->
+<main class="app-main">
+
+    <!-- Header Bar -->
+    <header class="app-header">
+        <div class="header-title">
+            <h4 id="pageHeading">Dashboard Overview</h4>
+        </div>
+        <div class="header-actions">
+            <span class="text-muted small d-none d-md-inline" id="userWelcomeHeader">Signed in as <strong>Poonam Memane</strong></span>
+            
+            <!-- Quick Action Buttons -->
+            <button class="btn btn-custom-primary" onclick="openCreateReservationModal()">
+                <i class="fa-solid fa-calendar-plus me-1"></i> Book Space
+            </button>
+            <button class="btn btn-success fw-bold" id="adminAddResourceBtn" onclick="openCreateResourceModal()">
+                <i class="fa-solid fa-plus me-1"></i> Add Space
+            </button>
+        </div>
+    </header>
+
+    <!-- Content Area -->
+    <div class="app-content">
+
+        <!-- ================= VIEW 1: DASHBOARD ================= -->
+        <div id="view-dashboard" class="app-view">
+            <!-- Metrics Row -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 col-xl-3">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h6>Total Catalog Spaces</h6>
+                            <h3 id="statTotalResources">4</h3>
+                        </div>
+                        <div class="metric-icon-wrap icon-indigo"><i class="fa-solid fa-building-user"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h6>Active Reservations</h6>
+                            <h3 id="statTotalBookings">2</h3>
+                        </div>
+                        <div class="metric-icon-wrap icon-green"><i class="fa-solid fa-calendar-check"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h6>Confirmed Bookings</h6>
+                            <h3 id="statConfirmedBookings">1</h3>
+                        </div>
+                        <div class="metric-icon-wrap icon-purple"><i class="fa-solid fa-circle-check"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <h6>Current Role</h6>
+                            <h3 style="font-size: 1.2rem; color: #4338ca;" id="statRoleDisplay">Administrator</h3>
+                        </div>
+                        <div class="metric-icon-wrap icon-amber"><i class="fa-solid fa-shield-halved"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Greeting Banner -->
+            <div class="content-card bg-white p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h4 class="fw-bold mb-1">Hello, <span class="text-primary" id="welcomeBannerName">Poonam Memane</span></h4>
+                    <p class="text-muted mb-0">Browse corporate conference rooms, studio gear, and fleet transit priced in Indian Rupees (₹).</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary fw-bold" onclick="switchView('resources')">
+                        <i class="fa-solid fa-compass me-1"></i> Browse Spaces
+                    </button>
+                    <button class="btn btn-primary fw-bold" onclick="switchView('reservations')" style="background: var(--primary); border: none;">
+                        <i class="fa-solid fa-calendar-day me-1"></i> View My Schedule
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activity Table -->
+            <div class="content-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0">Recent Bookings</h5>
+                    <button class="btn btn-sm btn-link text-decoration-none fw-bold" onclick="switchView('reservations')">See All &rarr;</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-custom align-middle">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Space / Gear</th>
+                                <th>Booked By</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Cost (₹ INR)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboardRecentTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= VIEW 2: SPACES & RESOURCES ================= -->
+        <div id="view-resources" class="app-view d-none">
+            <div class="content-card">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
+                            <input type="text" id="resSearchInput" class="form-control border-start-0" placeholder="Search meeting rooms, cameras, vehicles..." oninput="loadResources()">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="resTypeSelect" class="form-select" onchange="loadResources()">
+                            <option value="">All Categories</option>
+                            <option value="ROOM">Conference Rooms</option>
+                            <option value="EQUIPMENT">AV & Studio Gear</option>
+                            <option value="VEHICLE">Fleet Vehicles</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="resAvailSelect" class="form-select" onchange="loadResources()">
+                            <option value="">All Statuses</option>
+                            <option value="true">Available Only</option>
+                            <option value="false">Booked</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <button class="btn btn-primary w-100 fw-bold" onclick="loadResources()" style="background: var(--primary); border: none;">
+                            <i class="fa-solid fa-arrows-rotate me-1"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4" id="resourcesGrid"></div>
+        </div>
+
+        <!-- ================= VIEW 3: RESERVATIONS ================= -->
+        <div id="view-reservations" class="app-view d-none">
+            <div class="content-card">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Status</label>
+                        <select id="filterStatus" class="form-select" onchange="loadReservations()">
+                            <option value="">All Statuses</option>
+                            <option value="PENDING">PENDING</option>
+                            <option value="CONFIRMED">CONFIRMED</option>
+                            <option value="CANCELLED">CANCELLED</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Min Price (₹)</label>
+                        <input type="number" step="100" id="filterMinPrice" class="form-control" placeholder="₹0.00" onchange="loadReservations()">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Max Price (₹)</label>
+                        <input type="number" step="100" id="filterMaxPrice" class="form-control" placeholder="₹50,000.00" onchange="loadReservations()">
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <button class="btn btn-custom-primary w-100" onclick="openCreateReservationModal()">
+                            <i class="fa-solid fa-calendar-plus me-1"></i> New Reservation
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card p-0 overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table table-custom align-middle">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Space / Gear</th>
+                                <th>Reserved For</th>
+                                <th>Schedule Date & Time</th>
+                                <th>Total Cost (₹ INR)</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservationsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Modal: Create Space (Admin Only) -->
+<div class="modal fade" id="createResourceModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">Add New Resource</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createResourceForm" onsubmit="handleCreateResource(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Name</label>
+                        <input type="text" id="mResName" class="form-control" placeholder="e.g. Executive Boardroom Apollo" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">Category</label>
+                            <select id="mResType" class="form-select" required>
+                                <option value="ROOM">ROOM (Meeting Space)</option>
+                                <option value="EQUIPMENT">EQUIPMENT (Camera / Audio)</option>
+                                <option value="VEHICLE">VEHICLE (Fleet Transit)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">Capacity</label>
+                            <input type="number" id="mResCapacity" class="form-control" placeholder="16" min="1" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">Location / Department</label>
+                            <input type="text" id="mResLocation" class="form-control" placeholder="Tower A, 4th Floor, Pune" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">Base Rate (₹/hr)</label>
+                            <input type="number" step="100" id="mResBasePrice" class="form-control" placeholder="2500.00" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Description</label>
+                        <textarea id="mResDescription" class="form-control" rows="2" placeholder="Space amenities, display hardware..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-custom-primary w-100 py-2">Save Space to Catalog</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Create Reservation -->
+<div class="modal fade" id="createReservationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">Reserve a Space</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createReservationForm" onsubmit="handleCreateReservation(event)">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Select Space or Gear</label>
+                        <select id="mBookResourceId" class="form-select" required onchange="calculateEstimatedCost()"></select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">Start Time</label>
+                            <input type="datetime-local" id="mBookStartTime" class="form-control" required onchange="calculateEstimatedCost()">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">End Time</label>
+                            <input type="datetime-local" id="mBookEndTime" class="form-control" required onchange="calculateEstimatedCost()">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label fw-bold small text-muted mb-0">Total Estimated Cost in ₹ INR</label>
+                            <span class="badge bg-light text-primary fw-bold" id="costCalculationNote">Auto-calculated</span>
+                        </div>
+                        <input type="number" step="10" id="mBookTotalPrice" class="form-control" placeholder="Estimated cost in ₹">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small text-muted">Purpose / Meeting Title</label>
+                        <textarea id="mBookNotes" class="form-control" rows="2" placeholder="e.g. Quarterly Team Architecture Planning"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-custom-primary w-100 py-2">Confirm & Reserve</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container-custom" id="toastContainer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let currentAuth = null;
+    let cachedResources = [];
+
+    window.addEventListener('DOMContentLoaded', async () => {
+        const saved = localStorage.getItem('poonam_booking_auth');
+        if (saved) {
+            try {
+                currentAuth = JSON.parse(saved);
+            } catch (e) {
+                localStorage.removeItem('poonam_booking_auth');
+            }
+        }
+
+        if (!currentAuth) {
+            window.location.href = '/pages/login.html';
+            return;
+        }
+
+        updateUI();
+        loadAllData();
+
+        // Default booking times (Tomorrow 10:00 - 12:00)
+        const start = new Date();
+        start.setDate(start.getDate() + 1);
+        start.setHours(10, 0, 0, 0);
+        const end = new Date(start);
+        end.setHours(12, 0, 0, 0);
+
+        document.getElementById('mBookStartTime').value = start.toISOString().slice(0, 16);
+        document.getElementById('mBookEndTime').value = end.toISOString().slice(0, 16);
+    });
+
+    function showToast(msg, type = 'success') {
+        const toastId = 'toast-' + Date.now();
+        const icon = type === 'success' ? 'fa-circle-check text-success' : 'fa-circle-exclamation text-danger';
+        const html = `
+            <div id="${toastId}" class="toast align-items-center text-bg-white border-0 shadow-lg mb-2 rounded-3" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body d-flex align-items-center gap-2">
+                        <i class="fa-solid ${icon} fs-5"></i>
+                        <span class="fw-semibold text-dark">${msg}</span>
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('toastContainer').insertAdjacentHTML('beforeend', html);
+        const toastEl = document.getElementById(toastId);
+        const toast = new bootstrap.Toast(toastEl, { delay: 3500 });
+        toast.show();
+    }
+
+    function getAuthHeader() {
+        return currentAuth && currentAuth.token ? { 'Authorization': `Bearer ${currentAuth.token}` } : {};
+    }
+
+    async function toggleAccountRole() {
+        if (currentAuth.role === 'ROLE_ADMIN') {
+            await switchRole('user', 'user123');
+        } else {
+            await switchRole('poonam', 'poonam123');
+        }
+    }
+
+    async function switchRole(username, password) {
+        try {
+            const res = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const result = await res.json();
+            if (res.ok && result.success) {
+                currentAuth = result.data;
+                localStorage.setItem('poonam_booking_auth', JSON.stringify(currentAuth));
+                updateUI();
+                loadAllData();
+                showToast(`Switched view to ${currentAuth.role === 'ROLE_ADMIN' ? 'Administrator' : 'Member'}`);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('poonam_booking_auth');
+        window.location.href = '/pages/login.html';
+    }
+
+    function updateUI() {
+        if (currentAuth) {
+            const displayName = currentAuth.fullName || 'Poonam Memane';
+            const isAdmin = currentAuth.role === 'ROLE_ADMIN';
+            const roleLabel = isAdmin ? 'Administrator' : 'Member';
+
+            document.getElementById('sidebarName').innerText = displayName;
+            document.getElementById('sidebarRole').innerText = roleLabel;
+            document.getElementById('sidebarRole').className = `badge ${isAdmin ? 'bg-danger' : 'bg-primary'}`;
+            document.getElementById('userWelcomeHeader').innerHTML = `Signed in as <strong>${displayName}</strong> (${roleLabel})`;
+            document.getElementById('statRoleDisplay').innerText = roleLabel;
+            document.getElementById('welcomeBannerName').innerText = displayName;
+            document.getElementById('switchRoleLabel').innerText = isAdmin ? 'Switch to Member View' : 'Switch to Admin View';
+
+            const adminBtn = document.getElementById('adminAddResourceBtn');
+            if (adminBtn) {
+                adminBtn.style.display = isAdmin ? 'inline-block' : 'none';
+            }
+        }
+    }
+
+    function switchView(viewName) {
+        document.querySelectorAll('.app-view').forEach(v => v.classList.add('d-none'));
+        document.querySelectorAll('.nav-item-btn').forEach(btn => btn.classList.remove('active'));
+
+        const targetView = document.getElementById(`view-${viewName}`);
+        if (targetView) targetView.classList.remove('d-none');
+
+        const headingMap = {
+            'dashboard': 'Dashboard Overview',
+            'resources': 'Spaces & Resources Catalog',
+            'reservations': 'Reservations & Schedule'
+        };
+        document.getElementById('pageHeading').innerText = headingMap[viewName] || 'Dashboard';
+
+        if (viewName === 'resources') loadResources();
+        if (viewName === 'reservations') loadReservations();
+        if (viewName === 'dashboard') loadAllData();
+    }
+
+    async function loadAllData() {
+        await loadResources();
+        await loadReservations();
+    }
+
+    async function loadResources() {
+        if (!currentAuth) return;
+
+        const search = document.getElementById('resSearchInput')?.value || '';
+        const type = document.getElementById('resTypeSelect')?.value || '';
+        const avail = document.getElementById('resAvailSelect')?.value || '';
+
+        let url = `/api/resources?page=0&size=50`;
+        if (search) url += `&search=${encodeURIComponent(search)}`;
+        if (type) url += `&type=${encodeURIComponent(type)}`;
+        if (avail) url += `&isAvailable=${encodeURIComponent(avail)}`;
+
+        try {
+            const res = await fetch(url, { headers: getAuthHeader() });
+            const result = await res.json();
+            if (res.ok && result.success) {
+                cachedResources = result.data.content;
+                renderResourceCards(cachedResources);
+                populateBookingModalResources(cachedResources);
+                document.getElementById('statTotalResources').innerText = cachedResources.length;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    const defaultImages = {
+        'ROOM': 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80',
+        'EQUIPMENT': 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80',
+        'VEHICLE': 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80'
+    };
+
+    function renderResourceCards(items) {
+        const grid = document.getElementById('resourcesGrid');
+        if (!grid) return;
+
+        if (!items || items.length === 0) {
+            grid.innerHTML = '<div class="col-12 text-center text-muted py-5">No spaces found matching your search.</div>';
+            return;
+        }
+
+        grid.innerHTML = items.map(r => `
+            <div class="col-md-6 col-xl-3">
+                <div class="space-item-card">
+                    <div class="space-item-img" style="background-image: url('${defaultImages[r.type] || defaultImages['ROOM']}');">
+                        <span class="badge ${r.isAvailable ? 'bg-success' : 'bg-danger'} m-3">${r.isAvailable ? 'Available' : 'Booked'}</span>
+                    </div>
+                    <div class="space-item-body">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="badge bg-light text-secondary">${r.type}</span>
+                                <span class="small text-muted"><i class="fa-solid fa-users me-1"></i>Cap: ${r.capacity || 'N/A'}</span>
+                            </div>
+                            <h5 class="fw-bold mb-1">${r.name}</h5>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot me-1 text-danger"></i>${r.location || 'Pune Tech Park'}</p>
+                            <p class="text-secondary small mb-3 text-truncate-2">${r.description || ''}</p>
+                        </div>
+                        <div>
+                            <hr class="my-2 opacity-25">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="small text-muted">Hourly Rate</span>
+                                <span class="fw-bold text-primary fs-5">₹${parseFloat(r.basePrice || 0).toLocaleString('en-IN')}<small class="text-muted fs-6">/hr</small></span>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-custom-primary w-100" onclick="openBookingForResource(${r.id})">
+                                    <i class="fa-solid fa-calendar-check me-1"></i> Reserve Space
+                                </button>
+                                ${currentAuth && currentAuth.role === 'ROLE_ADMIN' ? `
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteResource(${r.id})" title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function populateBookingModalResources(items) {
+        const select = document.getElementById('mBookResourceId');
+        if (select) {
+            select.innerHTML = items.map(r => `<option value="${r.id}" data-price="${r.basePrice}">${r.name} (₹${parseFloat(r.basePrice || 0).toLocaleString('en-IN')}/hr)</option>`).join('');
+            calculateEstimatedCost();
+        }
+    }
+
+    function openBookingForResource(id) {
+        document.getElementById('mBookResourceId').value = id;
+        calculateEstimatedCost();
+        new bootstrap.Modal(document.getElementById('createReservationModal')).show();
+    }
+
+    function calculateEstimatedCost() {
+        const select = document.getElementById('mBookResourceId');
+        const opt = select.options[select.selectedIndex];
+        const basePrice = opt ? parseFloat(opt.getAttribute('data-price') || 0) : 0;
+
+        const startStr = document.getElementById('mBookStartTime').value;
+        const endStr = document.getElementById('mBookEndTime').value;
+
+        if (startStr && endStr) {
+            const d1 = new Date(startStr);
+            const d2 = new Date(endStr);
+            const diffMs = d2 - d1;
+            if (diffMs > 0) {
+                const hours = Math.max(1, diffMs / (1000 * 60 * 60));
+                const total = (hours * basePrice).toFixed(2);
+                document.getElementById('mBookTotalPrice').value = total;
+            }
+        }
+    }
+
+    function openCreateReservationModal() {
+        calculateEstimatedCost();
+        new bootstrap.Modal(document.getElementById('createReservationModal')).show();
+    }
+
+    function openCreateResourceModal() {
+        new bootstrap.Modal(document.getElementById('createResourceModal')).show();
+    }
+
+    async function loadReservations() {
+        if (!currentAuth) return;
+
+        const status = document.getElementById('filterStatus')?.value || '';
+        const minPrice = document.getElementById('filterMinPrice')?.value || '';
+        const maxPrice = document.getElementById('filterMaxPrice')?.value || '';
+
+        let url = `/api/reservations?page=0&size=50&sortDirection=desc`;
+        if (status) url += `&status=${encodeURIComponent(status)}`;
+        if (minPrice) url += `&minPrice=${encodeURIComponent(minPrice)}`;
+        if (maxPrice) url += `&maxPrice=${encodeURIComponent(maxPrice)}`;
+
+        try {
+            const res = await fetch(url, { headers: getAuthHeader() });
+            const result = await res.json();
+            if (res.ok && result.success) {
+                const list = result.data.content;
+                renderReservationsTable(list);
+                renderDashboardRecent(list);
+                document.getElementById('statTotalBookings').innerText = list.length;
+                document.getElementById('statConfirmedBookings').innerText = list.filter(x => x.status === 'CONFIRMED').length;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    function renderReservationsTable(items) {
+        const tbody = document.getElementById('reservationsTableBody');
+        if (!tbody) return;
+
+        if (!items || items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-5">No reservations found.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = items.map(r => `
+            <tr>
+                <td class="fw-bold">#${r.id}</td>
+                <td>
+                    <div class="fw-bold">${r.resourceName}</div>
+                    <small class="text-muted">${r.resourceType}</small>
+                </td>
+                <td>
+                    <div class="fw-semibold">${r.username}</div>
+                    <small class="text-muted">${r.userEmail}</small>
+                </td>
+                <td>
+                    <div>${formatDate(r.startTime)}</div>
+                    <small class="text-muted">${formatTime(r.startTime)} - ${formatTime(r.endTime)}</small>
+                </td>
+                <td class="fw-bold text-dark fs-6">₹${parseFloat(r.totalPrice).toLocaleString('en-IN')}</td>
+                <td><span class="badge-status badge-${r.status}"><i class="fa-solid fa-circle" style="font-size: 6px;"></i> ${r.status}</span></td>
+                <td>
+                    <div class="d-flex gap-1">
+                        ${currentAuth && currentAuth.role === 'ROLE_ADMIN' && r.status !== 'CONFIRMED' ? `
+                            <button class="btn btn-sm btn-outline-success" onclick="updateStatus(${r.id}, 'CONFIRMED')" title="Approve">
+                                <i class="fa-solid fa-check me-1"></i> Approve
+                            </button>
+                        ` : ''}
+                        ${r.status !== 'CANCELLED' ? `
+                            <button class="btn btn-sm btn-outline-danger" onclick="updateStatus(${r.id}, 'CANCELLED')" title="Cancel">
+                                <i class="fa-solid fa-xmark me-1"></i> Cancel
+                            </button>
+                        ` : ''}
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function renderDashboardRecent(items) {
+        const tbody = document.getElementById('dashboardRecentTable');
+        if (!tbody) return;
+
+        if (!items || items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-3">No active reservations yet.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = items.slice(0, 5).map(r => `
+            <tr>
+                <td class="fw-bold">#${r.id}</td>
+                <td class="fw-semibold">${r.resourceName}</td>
+                <td>${r.username}</td>
+                <td>${formatDate(r.startTime)}</td>
+                <td>${formatDate(r.endTime)}</td>
+                <td class="fw-bold text-success">₹${parseFloat(r.totalPrice).toLocaleString('en-IN')}</td>
+                <td><span class="badge-status badge-${r.status}">${r.status}</span></td>
+            </tr>
+        `).join('');
+    }
+
+    function formatDate(str) {
+        if (!str) return '-';
+        return new Date(str).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function formatTime(str) {
+        if (!str) return '';
+        return new Date(str).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    async function handleCreateReservation(e) {
+        e.preventDefault();
+        const resourceId = parseInt(document.getElementById('mBookResourceId').value);
+        const startTime = document.getElementById('mBookStartTime').value + ':00';
+        const endTime = document.getElementById('mBookEndTime').value + ':00';
+        const customPrice = document.getElementById('mBookTotalPrice').value;
+        const notes = document.getElementById('mBookNotes').value;
+
+        const payload = { resourceId, startTime, endTime, notes };
+        if (customPrice) payload.totalPrice = parseFloat(customPrice);
+
+        try {
+            const res = await fetch('/api/reservations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
+                body: JSON.stringify(payload)
+            });
+            const result = await res.json();
+            if (res.ok && result.success) {
+                bootstrap.Modal.getInstance(document.getElementById('createReservationModal')).hide();
+                showToast(`Reservation #${result.data.id} confirmed!`);
+                loadReservations();
+                switchView('reservations');
+            } else {
+                showToast(result.message || 'Failed to book space', 'error');
+            }
+        } catch (err) {
+            showToast('Error: ' + err.message, 'error');
+        }
+    }
+
+    async function handleCreateResource(e) {
+        e.preventDefault();
+        const name = document.getElementById('mResName').value;
+        const type = document.getElementById('mResType').value;
+        const capacity = parseInt(document.getElementById('mResCapacity').value);
+        const location = document.getElementById('mResLocation').value;
+        const basePrice = parseFloat(document.getElementById('mResBasePrice').value);
+        const description = document.getElementById('mResDescription').value;
+
+        try {
+            const res = await fetch('/api/resources', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
+                body: JSON.stringify({ name, type, capacity, location, basePrice, description, isAvailable: true })
+            });
+            const result = await res.json();
+            if (res.ok && result.success) {
+                bootstrap.Modal.getInstance(document.getElementById('createResourceModal')).hide();
+                showToast(`Space '${name}' added to catalog!`);
+                loadResources();
+            } else {
+                showToast(result.message || 'Failed to add space', 'error');
+            }
+        } catch (err) {
+            showToast('Error: ' + err.message, 'error');
+        }
+    }
+
+    async function deleteResource(id) {
+        if (!confirm('Are you sure you want to delete this space?')) return;
+        try {
+            const res = await fetch(`/api/resources/${id}`, {
+                method: 'DELETE',
+                headers: getAuthHeader()
+            });
+            const result = await res.json();
+            if (res.ok && result.success) {
+                showToast('Space deleted');
+                loadResources();
+            } else {
+                showToast(result.message || 'Failed to delete space', 'error');
+            }
+        } catch (e) {
+            showToast(e.message, 'error');
+        }
+    }
+
+    async function updateStatus(id, newStatus) {
+        try {
+            const res = await fetch(`/api/reservations/${id}/status`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', ...getAuthHeader() },
+                body: JSON.stringify({ status: newStatus })
+            });
+            const result = await res.json();
+            if (res.ok && result.success) {
+                showToast(`Reservation #${id} updated to ${newStatus}`);
+                loadReservations();
+            } else {
+                showToast(result.message || 'Status update failed', 'error');
+            }
+        } catch (e) {
+            showToast(e.message, 'error');
+        }
+    }
+</script>
+</body>
+</html>
