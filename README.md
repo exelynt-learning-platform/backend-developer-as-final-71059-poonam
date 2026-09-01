@@ -43,7 +43,7 @@ Users can instantly filter available resources by category:
 
 The application validates booking time ranges and prevents overlapping reservations for the same resource.
 
-This helps ensure that a resource cannot be reserved by multiple users for overlapping time periods.
+This ensures that a resource cannot be reserved by multiple users for overlapping time periods.
 
 ### 🔐 Enterprise Role-Based Access Control
 
@@ -53,8 +53,10 @@ The application provides role-based access using Spring Security and JWT authent
 
 Administrators can:
 
-- Manage resources
-- Create, update, and delete resources
+- Create resources
+- View resources
+- Update resources
+- Delete resources
 - View system-wide reservations
 - Manage booking status
 - Control the resource catalog
