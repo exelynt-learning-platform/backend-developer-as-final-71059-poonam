@@ -1,66 +1,86 @@
-<<<<<<< HEAD
-# 🏢 ReserveSpace - Enterprise Resource Booking Platform (Poonam Memane)
+# 🏢 ReserveSpace - Enterprise Resource Booking Platform
 
-A commercial-grade, real-time RESTful platform and interactive portal for **Corporate Resource & Meeting Space Booking** engineered by **Poonam Memane** with **Java 17+**, **Spring Boot 3**, **Spring Security 6**, **Stateless JWT**, and **MySQL with JPA / Hibernate**.
+A commercial-grade, real-time RESTful platform and interactive portal for **Corporate Resource & Meeting Space Booking**, engineered with **Java 17+**, **Spring Boot 3**, **Spring Security 6**, **Stateless JWT Authentication**, and **MySQL with JPA / Hibernate**.
 
-All resource rates and booking calculations are fully configured and formatted in **Indian Rupees (₹ INR)**.
+ReserveSpace allows organizations and members to discover, manage, and reserve corporate resources such as meeting rooms, AV production equipment, and fleet transportation.
+
+All resource rates and booking calculations are configured and displayed in **Indian Rupees (₹ INR)**.
 
 ---
 
 ## 🌟 Key Application Features
 
-- **🇮🇳 Full Indian Rupee (₹ INR) Integration**: Accurate decimal pricing and calculation across all meeting spaces, studio kits, and fleet transport (e.g. ₹2,500/hr, ₹4,000/hr, ₹1,200/hr, ₹3,500/hr).
-- **⚡ Interactive Real-Time Price Estimator**: Live calculator on the landing page allowing clients to pick a space and duration to preview exact reservation budgets in ₹.
-- **🎯 Dynamic Category Filtering**: Instant category pills (All, Meeting Rooms, AV Production, Fleet Transit) with real-time browser filtering.
-- **🛡️ Zero Double-Booking Collision Prevention**: Intelligent overlap locking ensuring resources cannot be booked concurrently.
-- **🔐 Enterprise Role-Based Access Control (RBAC)**:
-  - **Administrator (Poonam Memane)**: Full CRUD on spaces, system-wide schedule control, and status approval (`CONFIRMED`, `PENDING`, `CANCELLED`).
-  - **Member**: Self-service space discovery, automatic JWT identity binding, and isolated personal booking management.
-- **📖 OpenAPI / Swagger 3 Explorer**: Complete API testing suite at `/swagger-ui.html`.
+### 🇮🇳 Indian Rupee (₹ INR) Integration
 
----
+Accurate decimal pricing and booking calculations are supported across meeting spaces, studio kits, and fleet transportation.
 
-## 👥 Default Accounts (Poonam Memane)
+Example rates include:
 
-| Role | Username | Password | Full Name | Permissions |
-|---|---|---|---|---|
-| **👑 Administrator** | **`poonam`** | **`poonam123`** | **Poonam Memane** | Full CRUD on catalog & all reservations |
-| **👤 Member** | **`user`** | **`user123`** | **Poonam Memane** | Self-service booking & personal schedule |
+- ₹2,500/hour
+- ₹4,000/hour
+- ₹1,200/hour
+- ₹3,500/hour
 
----
+### ⚡ Interactive Real-Time Price Estimator
 
-## 🗄️ Database & Currency Configuration
+The landing page provides an interactive price calculator where users can:
 
-```properties
-spring.application.name=ResourceBookingSystem
-server.port=8080
+- Select a resource
+- Select booking duration
+- Calculate the estimated reservation cost
+- View the amount in Indian Rupees (₹)
 
-# MySQL Database (Asia/Kolkata Timezone)
-spring.datasource.url=jdbc:mysql://localhost:3306/bookingsystem?useSSL=false&serverTimezone=Asia/Kolkata
-spring.datasource.username=root
-spring.datasource.password=poonam
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+### 🎯 Dynamic Category Filtering
 
-# JPA / Hibernate
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-```
+Users can instantly filter available resources by category:
 
----
+- All
+- Meeting Rooms
+- AV Production
+- Fleet Transit
 
-## 🚀 Quick Launch
+### 🛡️ Double-Booking Collision Prevention
 
-1. **Access Web Platform**:
-   👉 [**http://localhost:8080**](http://localhost:8080)
-2. **Access Sign In Portal**:
-   👉 [**http://localhost:8080/pages/login.html**](http://localhost:8080/pages/login.html)
-3. **Swagger API Explorer**:
-   👉 [**http://localhost:8080/swagger-ui.html**](http://localhost:8080/swagger-ui.html)
-4. **Run Test Suite**:
-   ```bash
-   .\mvnw.cmd test
-   ```
-=======
-# backend-developer-as-final-71059-poonam
-Final Project Assignment - This repository contains the complete final project code and documentation.
->>>>>>> 105ea3cfa5b59b884eb03cf263a5fda4e2bd1502
+The application validates booking time ranges and prevents overlapping reservations for the same resource.
+
+This helps ensure that a resource cannot be reserved by multiple users for overlapping time periods.
+
+### 🔐 Enterprise Role-Based Access Control
+
+The application provides role-based access using Spring Security and JWT authentication.
+
+#### 👑 Administrator
+
+Administrators can:
+
+- Manage resources
+- Create, update, and delete resources
+- View system-wide reservations
+- Manage booking status
+- Control the resource catalog
+
+Supported booking statuses include:
+
+- `CONFIRMED`
+- `PENDING`
+- `CANCELLED`
+
+#### 👤 Member
+
+Members can:
+
+- Discover available resources
+- View resource details
+- Create bookings
+- View their own reservations
+- Manage their personal bookings
+- Access protected APIs using JWT authentication
+
+### 📖 OpenAPI / Swagger
+
+The project provides Swagger/OpenAPI documentation for API exploration and testing.
+
+Swagger UI:
+
+```text
+http://localhost:8080/swagger-ui.html
