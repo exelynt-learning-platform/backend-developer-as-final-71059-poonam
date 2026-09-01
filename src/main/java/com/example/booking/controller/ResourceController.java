@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/resources")
+@RequestMapping({"/api/resources", "/resources"})
 @RequiredArgsConstructor
 @Tag(name = "Resources", description = "Endpoints for viewing and managing bookable resources")
 @SecurityRequirement(name = "Bearer Authentication")

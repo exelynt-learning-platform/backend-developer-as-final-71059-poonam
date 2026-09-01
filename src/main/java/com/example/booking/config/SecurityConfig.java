@@ -89,13 +89,13 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // Resource endpoints RBAC
-                        .requestMatchers(HttpMethod.GET, "/api/resources/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/resources/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/resources/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/resources/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/resources/**", "/resources/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/resources/**", "/resources/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/resources/**", "/resources/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/resources/**", "/resources/**").hasRole("ADMIN")
 
                         // Reservation endpoints RBAC
-                        .requestMatchers("/api/reservations/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/reservations/**", "/reservations/**").hasAnyRole("USER", "ADMIN")
 
                         // All other endpoints require authentication
                         .anyRequest().authenticated()

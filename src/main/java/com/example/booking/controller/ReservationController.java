@@ -28,7 +28,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/api/reservations")
+@RequestMapping({"/api/reservations", "/reservations"})
 @RequiredArgsConstructor
 @Tag(name = "Reservations", description = "Endpoints for creating, filtering, and managing resource reservations")
 @SecurityRequirement(name = "Bearer Authentication")
